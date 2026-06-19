@@ -3,25 +3,102 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --ink: #1C2434;
+  --parchment: #F7F3E9;
+  --rust: #B23B2E;
+  --amber: #D98F0B;
+  --verified: #2E6F63;
+  --mist: #8A8F98;
+  --font-serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-sans: Inter, "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background-color: var(--parchment);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Custom Scrollbar to match parchment/ink aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(28, 36, 52, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(28, 36, 52, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(28, 36, 52, 0.3);
+}
+
+/* Page highlight and leaders animations */
+.clause-highlight {
+  transition: background-color 200ms ease;
+}
+
+.leader-line {
+  stroke-dasharray: 4;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 150ms linear;
+}
+
+.leader-line.drawing {
+  animation: drawLine 150ms linear forwards;
+}
+
+.margin-tab-reveal {
+  animation: revealMarginTabs 220ms ease-out both;
+}
+
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 8;
   }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes revealMarginTabs {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .leader-line.drawing,
+  .margin-tab-reveal {
+    animation: none;
+  }
+}
+
+/* Accessibility focus state */
+*:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Custom layout utility */
+.three-pane-height {
+  height: calc(100vh - 57px);
 }

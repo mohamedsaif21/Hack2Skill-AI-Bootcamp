@@ -9,8 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        ink: "var(--ink)",
+        parchment: "var(--parchment)",
+        rust: "var(--rust)",
+        amber: "var(--amber)",
+        verified: "var(--verified)",
+        mist: "var(--mist)",
+      },
+      fontFamily: {
+        serif: ["var(--font-serif)", "serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
     },
   },
